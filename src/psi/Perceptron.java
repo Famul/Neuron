@@ -13,9 +13,9 @@ public class Perceptron {
 		wy = generator.nextDouble();
 		b = generator.nextDouble();
 	}
-	public int calculate(int x, int y) {
+	public int calculate(Point point) {
 		double a;
-		a = x * wx + y * wy + b;
+		a = point.getX() * wx + point.getY() * wy + b;
 		if (a >= 0) {
 			return 1;
 		} else {
@@ -23,22 +23,38 @@ public class Perceptron {
 		}
 	}
 	
-	public int learn(int[][] input, int[] output ) {
-		if (input.length != 2 || input[0].length != input[1].length || input[0].length != output.length) {
+	public int learn(Point[] input, int[] output ) {
+		if (input.length != output.length) {
 			return 0;
 		}
 		int result;
 		double e;
-		for (int i = 0; i < input[i].length; i ++) {	
+		for (int i = 0; i < input.length; i ++) {	
 			do {
-				result = calculate(input[0][i], input[1][i]);
+				result = calculate(input[i]);
 				e = output[i] - result;
-				wx = wx + e * input[0][i];
-				wy = wy + e * input[1][i];
+				wx = wx + e * input[i].getX();
+				wy = wy + e * input[i].getY();
 				b = b + e;
 			} while(e != 0);
 		}
 		return 1;
+	}
+	
+	public double checkAnswers(Point[] input, int[] output) {
+		if (input.length != output.length) {
+			return 0;
+		}
+		int numberOfChecks = input.length;
+		int numberOfGoodAnswers = 0;
+		int result;
+		for (int i = 0; i < numberOfChecks; i ++) {	
+			result = calculate(input[i]);
+			if(result == output[i]) {
+				numberOfGoodAnswers++;
+			}
+		}
+		return numberOfGoodAnswers / input.length;
 	}
 
 }
