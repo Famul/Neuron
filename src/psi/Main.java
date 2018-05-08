@@ -69,7 +69,7 @@ public class Main {
 		Perceptron perceptron = new Perceptron();
 		do {
 			perceptron.learn(learningArray, learningArrayAnswers);
-		} while(perceptron.checkAnswers(checkingList, checkingListAnswers) < 0.9);
+		} while(perceptron.checkAnswers(checkingList, checkingListAnswers) < 1);
 		
 		int x, y;
 		Scanner scanner = new Scanner(System.in);
@@ -82,6 +82,7 @@ public class Main {
 			point = new Point(x, y);
 			System.out.println("Odpowiedz: " + perceptron.calculate(point));
 		} while (x != 0 || y != 0);
+		scanner.close();
 	}
 
 }

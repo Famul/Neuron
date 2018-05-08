@@ -17,7 +17,7 @@ public class Perceptron {
 	public int calculate(Point point) {
 		double a;
 		a = point.getX() * wx + point.getY() * wy + b;
-		if (a >= 0) {
+		if (a > 0) {
 			return 1;
 		} else {
 			return 0;
@@ -30,13 +30,27 @@ public class Perceptron {
 		}
 		int result;
 		double e;
-		for (int i = 0; i < input.size(); i ++) {	
+		int j;
+		System.out.println("Wartosci poczatkowe wx=" + wx + " wy=" + wy + " b=" + b);
+
+		for (int i = 0; i < input.size(); i ++) {
+			System.out.println("Wartosc nr: " + (i+1));
+			j = 0;
 			do {
+				j++;
 				result = calculate(input.get(i));
 				e = output.get(i) - result;
-				wx = wx + e * input.get(i).getX();
-				wy = wy + e * input.get(i).getY();
-				b = b + e;
+				System.out.println("Przebieg: " + j + " Blad=" + e + " wx=" + wx + " wy=" + wy + " b=" + b);
+				System.out.println("  Punkt (" + input.get(i).getX() + "," + input.get(i).getY() + ") wynik=" +
+						result + " oczekiwane: " + output.get(i));
+
+				if(e != 0) {
+					wx = wx + e * input.get(i).getX();
+					wy = wy + e * input.get(i).getY();
+					b = b + e;
+					System.out.println("Nowe wartosci: wx="+ wx + " wy=" + wy + " b=" + b);
+				}
+				
 			} while(e != 0);
 		}
 		return 1;
