@@ -66,6 +66,10 @@ public class Main {
 
 		checkingList.add(new Point(-4, -16));
 		checkingListAnswers.add(0);
+		
+		checkingList.add(new Point(5, 9));
+		checkingListAnswers.add(0);
+		
 		Perceptron perceptron = new Perceptron();
 		do {
 			perceptron.learn(learningArray, learningArrayAnswers);
